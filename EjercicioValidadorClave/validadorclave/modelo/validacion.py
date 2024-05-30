@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from .errores import *
 
 class ReglaValidacion(ABC):
     def __init__(self, longitud_esperada: int):
@@ -30,15 +31,15 @@ class ReglaValidacionGanimedes(ReglaValidacion):
 
     def es_valida(self, clave: str) -> bool:
         if not self._validar_longitud(clave):
-            raise ErrorLongitud("La clave no tiene la longitud mínima requerida.")
+            raise NoCumpleLongitudMinimaError("La clave no tiene la longitud mínima requerida.")
         if not self._contiene_mayuscula(clave):
-            raise ErrorMayuscula("La clave no contiene al menos una letra mayúscula.")
+            raise NoTieneLetraMayusculaError("La clave no contiene al menos una letra mayúscula.")
         if not self._contiene_minuscula(clave):
-            raise ErrorMinuscula("La clave no contiene al menos una letra minúscula.")
+            raise NoTieneLetraMinusculaError("La clave no contiene al menos una letra minúscula.")
         if not self._contiene_numero(clave):
-            raise ErrorNumero("La clave no contiene al menos un número.")
+            raise NoTieneNumeroError("La clave no contiene al menos un número.")
         if not self.contiene_caracter_especial(clave):
-            raise ErrorCaracterEspecial("La clave no contiene al menos un carácter especial.")
+            raise NoTieneCaracterEspecialError("La clave no contiene al menos un carácter especial.")
         return True
 
 class ReglaValidacionCalisto(ReglaValidacion):
@@ -52,13 +53,13 @@ class ReglaValidacionCalisto(ReglaValidacion):
         substring = clave[index:index+7]
         mayusculas = sum(1 for c in substring if c.isupper())
         minusculas = sum(1 for c in substring if c.islower())
-        return 1 < mayusculas < 7 and minusculas > 0
+        return mayusculas >= 2 and mayusculas < 7 and minusculas > 0
 
     def es_valida(self, clave: str) -> bool:
         if not self._validar_longitud(clave):
-            raise ErrorLongitud("La clave no tiene la longitud mínima requerida.")
+            raise NoCumpleLongitudMinimaError("La clave no tiene la longitud mínima requerida.")
         if not self._contiene_numero(clave):
-            raise ErrorNumero("La clave no contiene al menos un número.")
+            raise NoTieneNumeroError("La clave no contiene al menos un número.")
         if not self.contiene_calisto(clave):
-            raise ErrorCalisto("La clave no contiene la palabra 'calisto' con al menos dos letras mayúsculas y no todas.")
+            raise NoTienePalabraSecretaError("La clave no contiene la palabra 'calisto' con al menos dos letras mayúsculas y no todas.")
         return True

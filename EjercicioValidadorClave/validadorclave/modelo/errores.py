@@ -1,20 +1,20 @@
 class ErrorValidacion(Exception):
     pass
 
-class ErrorLongitud(ErrorValidacion):
+class NoTieneLetraMayusculaError(ErrorValidacion):
     pass
 
-class ErrorMayuscula(ErrorValidacion):
+class NoTieneLetraMinusculaError(ErrorValidacion):
     pass
 
-class ErrorMinuscula(ErrorValidacion):
+class NoTieneNumeroError(ErrorValidacion):
     pass
 
-class ErrorNumero(ErrorValidacion):
+class NoTieneCaracterEspecialError(ErrorValidacion):
     pass
 
-class ErrorCaracterEspecial(ErrorValidacion):
+class NoCumpleLongitudMinimaError(ErrorValidacion):
     pass
 
-class ErrorCalisto(ErrorValidacion):
+class NoTienePalabraSecretaError(ErrorValidacion):
     pass
